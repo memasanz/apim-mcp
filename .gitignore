@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# Node
+node_modules/
+ui/dist/
+.vite/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.playwrite-mcp
+.playwrite-mcp/
+# Secrets / local config
+.env
+.env.*
+!.env.example
+config/config.local.json
+
+# Azure / azd
+.azure/
+*.azurePubxml
+
+# Built static UI copied into server
+server/app/static/

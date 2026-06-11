@@ -1,0 +1,53 @@
+:root {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #1f2328;
+  background: #f6f8fa;
+}
+
+body { margin: 0; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+header h1 { margin: 0 0 4px; font-size: 22px; }
+header p  { margin: 0 0 24px; color: #57606a; }
+
+.service { background: #fff; border: 1px solid #d0d7de; border-radius: 8px;
+           margin-bottom: 16px; }
+.service-header { padding: 12px 16px; border-bottom: 1px solid #d0d7de;
+                  background: #f6f8fa; font-weight: 600; }
+
+.resource { padding: 8px 16px; border-top: 1px dashed #d0d7de; }
+.resource:first-child { border-top: none; }
+.resource-name { font-weight: 600; margin: 8px 0; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+td, th { text-align: left; padding: 6px 8px; }
+tr.mut td { background: #fff8c5; }
+
+.toolbar { display: flex; gap: 8px; align-items: center;
+           position: sticky; top: 0; background: #f6f8fa; padding: 8px 0;
+           border-bottom: 1px solid #d0d7de; margin-bottom: 16px; z-index: 1; }
+button { background: #1f883d; color: #fff; border: 0; padding: 8px 14px;
+         border-radius: 6px; cursor: pointer; font-weight: 600; }
+button.secondary { background: #fff; color: #1f2328; border: 1px solid #d0d7de; }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.error { color: #cf222e; padding: 8px; background: #ffebe9;
+         border: 1px solid #ffcecb; border-radius: 6px; margin: 8px 0; }
+.success { color: #1f883d; padding: 8px; background: #dafbe1;
+           border: 1px solid #bff5c8; border-radius: 6px; margin: 8px 0; }
+
+code { background: #f6f8fa; padding: 1px 4px; border-radius: 4px;
+       font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+
+.muted { color: #8c959f; }
+
+.badge { display: inline-block; padding: 1px 6px; margin: 0 2px 2px 0;
+         border-radius: 10px; font-size: 11px; font-weight: 600;
+         border: 1px solid transparent; }
+.badge.rbac { background: #ddf4ff; color: #0969da; border-color: #b6e3ff; }
+
+.badge.pii { text-transform: uppercase; letter-spacing: 0.3px; }
+.badge.pii-none   { background: #dafbe1; color: #1a7f37; border-color: #b6f0c1; }
+.badge.pii-low    { background: #fff8c5; color: #7d4e00; border-color: #f3df8a; }
+.badge.pii-medium { background: #ffd8b5; color: #9a4400; border-color: #ffb077; }
+.badge.pii-high   { background: #ffebe9; color: #cf222e; border-color: #ffaba8; }

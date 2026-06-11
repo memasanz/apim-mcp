@@ -1,0 +1,200 @@
+{
+  "$schema": "./config.schema.json",
+  "version": 1,
+  "defaults": { "timeoutSeconds": 60, "subscriptionId": null },
+  "services": {
+    "apim": {
+      "displayName": "API Management",
+      "description": "Azure API Management read-only control-plane operations via `az apim`.",
+      "resources": {
+        "service": {
+          "displayName": "APIM Service",
+          "commands": {
+            "list":       { "enabled": true, "mutation": false, "azCommand": ["apim","list"],       "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "show":       { "enabled": true, "mutation": false, "azCommand": ["apim","show"],       "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "check-name": { "enabled": true, "mutation": false, "azCommand": ["apim","check-name"], "rbacRoles": ["Reader"], "piiRisk": "none" }
+          }
+        },
+        "deletedservice": {
+          "displayName": "Deleted Services",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim","deletedservice","list"], "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim","deletedservice","show"], "rbacRoles": ["Reader"], "piiRisk": "none" }
+          }
+        },
+        "api": {
+          "displayName": "APIs",
+          "commands": {
+            "list":   { "enabled": true,  "mutation": false, "azCommand": ["apim","api","list"],   "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "show":   { "enabled": true,  "mutation": false, "azCommand": ["apim","api","show"],   "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "export": { "enabled": true,  "mutation": false, "azCommand": ["apim","api","export"], "rbacRoles": ["API Management Service Reader Role"], "piiRisk": "low", "piiNotes": "OpenAPI/Swagger definitions may include example values devs put in description fields." },
+            "create": { "enabled": false, "mutation": true,  "azCommand": ["apim","api","create"], "rbacRoles": ["API Management Service Contributor"] },
+            "update": { "enabled": false, "mutation": true,  "azCommand": ["apim","api","update"], "rbacRoles": ["API Management Service Contributor"] },
+            "delete": { "enabled": false, "mutation": true,  "azCommand": ["apim","api","delete"], "rbacRoles": ["API Management Service Contributor"] },
+            "import": { "enabled": false, "mutation": true,  "azCommand": ["apim","api","import"], "rbacRoles": ["API Management Service Contributor"] }
+          }
+        },
+        "api-operation": {
+          "displayName": "API Operations",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim","api","operation","list"], "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim","api","operation","show"], "rbacRoles": ["Reader"], "piiRisk": "none" }
+          }
+        },
+        "api-release": {
+          "displayName": "API Releases",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim","api","release","list"], "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim","api","release","show"], "rbacRoles": ["Reader"], "piiRisk": "none" }
+          }
+        },
+        "api-revision": {
+          "displayName": "API Revisions",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim","api","revision","list"], "rbacRoles": ["Reader"], "piiRisk": "none" }
+          }
+        },
+        "api-versionset": {
+          "displayName": "API Version Sets",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim","api","versionset","list"], "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim","api","versionset","show"], "rbacRoles": ["Reader"], "piiRisk": "none" }
+          }
+        },
+        "api-schema": {
+          "displayName": "API Schemas",
+          "commands": {
+            "list":     { "enabled": true, "mutation": false, "azCommand": ["apim","api","schema","list"],     "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "show":     { "enabled": true, "mutation": false, "azCommand": ["apim","api","schema","show"],     "rbacRoles": ["API Management Service Reader Role"], "piiRisk": "low",  "piiNotes": "Schema bodies may include example values." },
+            "get-etag": { "enabled": true, "mutation": false, "azCommand": ["apim","api","schema","get-etag"], "rbacRoles": ["Reader"], "piiRisk": "none" }
+          }
+        },
+        "product": {
+          "displayName": "Products",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim","product","list"], "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim","product","show"], "rbacRoles": ["Reader"], "piiRisk": "none" }
+          }
+        },
+        "product-api": {
+          "displayName": "Product APIs",
+          "commands": {
+            "list":  { "enabled": true, "mutation": false, "azCommand": ["apim","product","api","list"],  "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "check": { "enabled": true, "mutation": false, "azCommand": ["apim","product","api","check"], "rbacRoles": ["Reader"], "piiRisk": "none" }
+          }
+        },
+        "named-value": {
+          "displayName": "Named Values",
+          "commands": {
+            "list":        { "enabled": true,  "mutation": false, "azCommand": ["apim","nv","list"],        "rbacRoles": ["Reader"], "piiRisk": "low",  "piiNotes": "Named-value keys may hint at app config; values are NOT returned by list." },
+            "show":        { "enabled": true,  "mutation": false, "azCommand": ["apim","nv","show"],        "rbacRoles": ["Reader"], "piiRisk": "low",  "piiNotes": "Non-secret value returned in plaintext." },
+            "show-secret": { "enabled": false, "mutation": false, "azCommand": ["apim","nv","show-secret"], "rbacRoles": ["API Management Service Reader Role"], "piiRisk": "high", "piiNotes": "Returns the secret value of the Named Value (API keys, connection strings, etc.)." }
+          }
+        },
+        "graphql-resolver": {
+          "displayName": "GraphQL Resolvers",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim","graphql","resolver","list"], "rbacRoles": ["Reader"], "piiRisk": "none" },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim","graphql","resolver","show"], "rbacRoles": ["Reader"], "piiRisk": "none" }
+          }
+        },
+        "graphql-resolver-policy": {
+          "displayName": "GraphQL Resolver Policies",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim","graphql","resolver","policy","list"], "rbacRoles": ["Reader"], "piiRisk": "low", "piiNotes": "Policy XML may embed example tokens/keys." },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim","graphql","resolver","policy","show"], "rbacRoles": ["Reader"], "piiRisk": "low", "piiNotes": "Policy XML may embed example tokens/keys." }
+          }
+        }
+      }
+    },
+    "monitor": {
+      "displayName": "Azure Monitor",
+      "description": "Metrics, diagnostic settings, activity log, and Log Analytics queries via `az monitor`.",
+      "resources": {
+        "metrics": {
+          "displayName": "Metrics",
+          "commands": {
+            "list":             {
+              "enabled": true, "mutation": false,
+              "azCommand": ["monitor","metrics","list"],
+              "rbacRoles": ["Monitoring Reader"], "piiRisk": "none",
+              "piiNotes": "Pre-aggregated numeric time series; no payloads.",
+              "description": "Query Azure Monitor PLATFORM metrics. REQUIRED: --resource = FULL ARM resource ID (e.g. /subscriptions/<sub>/resourceGroups/<rg>/providers/Microsoft.ApiManagement/service/<name>), NOT just the resource name. REQUIRED: --metric = ONE valid metric name for that resource type. For APIM valid metric names are: Requests, Duration, BackendDuration, Capacity, SuccessfulRequests, FailedRequests, UnauthorizedRequests, OtherRequests, BlockedRequests, EventHubTotalEvents, EventHubSuccessfulEvents, EventHubDroppedEvents, EventHubRejectedEvents, EventHubTotalBytesSent, EventHubTotalFailedEvents, NetworkConnectivity (v2 SKUs only), WebSocketMessages. Do NOT use TotalRequests/IngressE2ELatency/SuccessE2ELatency (those are Container Apps / Front Door). If unsure, call monitor_metrics_list_definitions FIRST. Common optional flags: --interval (e.g. PT1M, PT5M, PT1H), --aggregation (Count|Average|Minimum|Maximum|Total), --offset (e.g. 1h, 1d, 7d), --start-time/--end-time (ISO 8601 UTC), --filter (dimension filter like \"ApiId eq '*'\"). Example: {\"--resource\": \"/subscriptions/.../service/myapim\", \"--metric\": \"Requests\", \"--interval\": \"PT5M\", \"--aggregation\": \"Count\", \"--offset\": \"1h\"}."
+            },
+            "list-definitions": {
+              "enabled": true, "mutation": false,
+              "azCommand": ["monitor","metrics","list-definitions"],
+              "rbacRoles": ["Monitoring Reader"], "piiRisk": "none",
+              "description": "List all valid metric DEFINITIONS available for a given resource. Call this FIRST when you don't know the exact metric name. REQUIRED: --resource = FULL ARM resource ID. Returns each metric's name, supported aggregations, unit, and dimensions. Example: {\"--resource\": \"/subscriptions/.../service/myapim\"}."
+            },
+            "list-namespaces":  {
+              "enabled": true, "mutation": false,
+              "azCommand": ["monitor","metrics","list-namespaces"],
+              "rbacRoles": ["Monitoring Reader"], "piiRisk": "none",
+              "description": "List metric namespaces published for a resource. Useful when a service emits metrics under a custom namespace. REQUIRED: --resource = FULL ARM resource ID."
+            }
+          }
+        },
+        "diagnostic-settings": {
+          "displayName": "Diagnostic Settings",
+          "commands": {
+            "list": {
+              "enabled": true, "mutation": false,
+              "azCommand": ["monitor","diagnostic-settings","list"],
+              "rbacRoles": ["Monitoring Reader"], "piiRisk": "none",
+              "description": "List diagnostic settings on a resource — i.e. which logs/metrics are being routed to Log Analytics, Storage, or Event Hubs. REQUIRED: --resource = FULL ARM resource ID. Use this to discover which Log Analytics workspace (if any) is receiving an APIM's GatewayLogs before attempting a KQL query."
+            },
+            "show": {
+              "enabled": true, "mutation": false,
+              "azCommand": ["monitor","diagnostic-settings","show"],
+              "rbacRoles": ["Monitoring Reader"], "piiRisk": "none",
+              "description": "Show one diagnostic setting in detail. REQUIRED: --name <setting-name>, --resource = FULL ARM resource ID. The response contains workspaceId (ARM ID of the LAW receiving the data)."
+            }
+          }
+        },
+        "activity-log": {
+          "displayName": "Activity Log",
+          "commands": {
+            "list": {
+              "enabled": true, "mutation": false,
+              "azCommand": ["monitor","activity-log","list"],
+              "rbacRoles": ["Monitoring Reader"], "piiRisk": "low",
+              "piiNotes": "Returns caller UPN, email, IP and token claims for user-initiated operations.",
+              "description": "List subscription-scope control-plane events (who/what/when changed a resource). Useful flags: --resource-group <rg>, --resource-id <ARM-id>, --resource-provider Microsoft.ApiManagement, --offset 1d (default 1h), --start-time/--end-time, --max-events 50. Returns caller identity (UPN/email/IP), operation name, status, correlationId."
+            }
+          }
+        },
+        "log-analytics-workspace": {
+          "displayName": "Log Analytics Workspaces",
+          "commands": {
+            "list": {
+              "enabled": true, "mutation": false,
+              "azCommand": ["monitor","log-analytics","workspace","list"],
+              "rbacRoles": ["Reader"], "piiRisk": "none",
+              "description": "List Log Analytics workspaces. Optional: --resource-group <rg>. Returns each workspace's ARM id, name, and customerId (the GUID needed by monitor_log_analytics_query_query --workspace)."
+            },
+            "show": {
+              "enabled": true, "mutation": false,
+              "azCommand": ["monitor","log-analytics","workspace","show"],
+              "rbacRoles": ["Reader"], "piiRisk": "none",
+              "description": "Show one Log Analytics workspace. REQUIRED: --resource-group <rg>, --workspace-name <name>. Returns customerId (the GUID needed by monitor_log_analytics_query_query --workspace)."
+            }
+          }
+        },
+        "log-analytics-query": {
+          "displayName": "Log Analytics Query (KQL)",
+          "commands": {
+            "query": {
+              "enabled": true, "mutation": false,
+              "azCommand": ["monitor","log-analytics","query"],
+              "rbacRoles": ["Log Analytics Reader"], "piiRisk": "high",
+              "piiNotes": "KQL can return arbitrary ingested data: APIM verbose logs (Authorization headers, JWTs, request/response bodies, URLs with PII), AppInsights traces/exceptions with whatever developers logged.",
+              "permissiveParams": ["--analytics-query"],
+              "description": "Run a KQL query against a Log Analytics workspace. REQUIRED parameters (EXACT names): --workspace <workspace-customer-id-GUID> (NOT the ARM id — get it from monitor_log_analytics_workspace_show.customerId), --analytics-query \"<KQL string>\". Optional: --timespan PT1H (ISO 8601 duration) to scope server-side. APIM gateway log table is ApiManagementGatewayLogs (only present if a diagnostic setting routes GatewayLogs to this workspace — verify with monitor_diagnostic_settings_list/show first). KQL rules: always project specific columns (never project *); cap rows with take/top; use summarize for aggregates. Example: {\"--workspace\": \"a1b2c3d4-...\", \"--analytics-query\": \"ApiManagementGatewayLogs | where TimeGenerated > ago(1h) | where ResponseCode >= 500 | summarize Errors=count() by ApiId, OperationName, ResponseCode | top 20 by Errors\"}. Treat Url/RequestHeaders/RequestBody/ResponseBody/ClientIP/customDimensions as PII — summarize, do not echo raw."
+            }
+          }
+        }
+      }
+    }
+  }
+}

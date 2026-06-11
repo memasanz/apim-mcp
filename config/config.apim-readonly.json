@@ -1,0 +1,114 @@
+{
+  "$schema": "./config.schema.json",
+  "version": 1,
+  "defaults": {
+    "timeoutSeconds": 60,
+    "subscriptionId": null
+  },
+  "services": {
+    "apim": {
+      "displayName": "API Management",
+      "description": "Azure API Management read-only control-plane operations via `az apim`.",
+      "resources": {
+        "service": {
+          "displayName": "APIM Service",
+          "commands": {
+            "list":       { "enabled": true, "mutation": false, "azCommand": ["apim", "list"] },
+            "show":       { "enabled": true, "mutation": false, "azCommand": ["apim", "show"] },
+            "check-name": { "enabled": true, "mutation": false, "azCommand": ["apim", "check-name"] }
+          }
+        },
+        "deletedservice": {
+          "displayName": "Deleted Services",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim", "deletedservice", "list"] },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim", "deletedservice", "show"] }
+          }
+        },
+        "api": {
+          "displayName": "APIs",
+          "commands": {
+            "list":   { "enabled": true,  "mutation": false, "azCommand": ["apim", "api", "list"] },
+            "show":   { "enabled": true,  "mutation": false, "azCommand": ["apim", "api", "show"] },
+            "export": { "enabled": true,  "mutation": false, "azCommand": ["apim", "api", "export"] },
+            "create": { "enabled": false, "mutation": true,  "azCommand": ["apim", "api", "create"] },
+            "update": { "enabled": false, "mutation": true,  "azCommand": ["apim", "api", "update"] },
+            "delete": { "enabled": false, "mutation": true,  "azCommand": ["apim", "api", "delete"] },
+            "import": { "enabled": false, "mutation": true,  "azCommand": ["apim", "api", "import"] }
+          }
+        },
+        "api-operation": {
+          "displayName": "API Operations",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim", "api", "operation", "list"] },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim", "api", "operation", "show"] }
+          }
+        },
+        "api-release": {
+          "displayName": "API Releases",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim", "api", "release", "list"] },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim", "api", "release", "show"] }
+          }
+        },
+        "api-revision": {
+          "displayName": "API Revisions",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim", "api", "revision", "list"] }
+          }
+        },
+        "api-versionset": {
+          "displayName": "API Version Sets",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim", "api", "versionset", "list"] },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim", "api", "versionset", "show"] }
+          }
+        },
+        "api-schema": {
+          "displayName": "API Schemas",
+          "commands": {
+            "list":     { "enabled": true, "mutation": false, "azCommand": ["apim", "api", "schema", "list"] },
+            "show":     { "enabled": true, "mutation": false, "azCommand": ["apim", "api", "schema", "show"] },
+            "get-etag": { "enabled": true, "mutation": false, "azCommand": ["apim", "api", "schema", "get-etag"] }
+          }
+        },
+        "product": {
+          "displayName": "Products",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim", "product", "list"] },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim", "product", "show"] }
+          }
+        },
+        "product-api": {
+          "displayName": "Product APIs",
+          "commands": {
+            "list":  { "enabled": true, "mutation": false, "azCommand": ["apim", "product", "api", "list"] },
+            "check": { "enabled": true, "mutation": false, "azCommand": ["apim", "product", "api", "check"] }
+          }
+        },
+        "named-value": {
+          "displayName": "Named Values",
+          "commands": {
+            "list":        { "enabled": true,  "mutation": false, "azCommand": ["apim", "nv", "list"] },
+            "show":        { "enabled": true,  "mutation": false, "azCommand": ["apim", "nv", "show"] },
+            "show-secret": { "enabled": false, "mutation": false, "azCommand": ["apim", "nv", "show-secret"] }
+          }
+        },
+        "graphql-resolver": {
+          "displayName": "GraphQL Resolvers",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim", "graphql", "resolver", "list"] },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim", "graphql", "resolver", "show"] }
+          }
+        },
+        "graphql-resolver-policy": {
+          "displayName": "GraphQL Resolver Policies",
+          "commands": {
+            "list": { "enabled": true, "mutation": false, "azCommand": ["apim", "graphql", "resolver", "policy", "list"] },
+            "show": { "enabled": true, "mutation": false, "azCommand": ["apim", "graphql", "resolver", "policy", "show"] }
+          }
+        }
+      }
+    }
+  }
+}

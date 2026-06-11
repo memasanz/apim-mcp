@@ -1,0 +1,56 @@
+# syntax=docker/dockerfile:1.7
+# MCP server image — Python + azure-cli, no UI assets.
+
+FROM python:3.12-slim-bookworm AS runtime
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    HOST=0.0.0.0 \
+    PORT=8000 \
+    CONFIG_PATH=/etc/cli-mcp/config.json \
+    LOG_LEVEL=INFO \
+    DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      ca-certificates curl gnupg apt-transport-https lsb-release \
+ && mkdir -p /etc/apt/keyrings \
+ && curl -sLS https://packages.microsoft.com/keys/microsoft.asc \
+      | gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg \
+ && AZ_DIST="$(lsb_release -cs)" \
+ && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ ${AZ_DIST} main" \
+      > /etc/apt/sources.list.d/azure-cli.list \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends azure-cli \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY server/pyproject.toml ./server/pyproject.toml
+RUN pip install --upgrade pip \
+ && pip install \
+      "fastapi>=0.115" \
+      "uvicorn[standard]>=0.30" \
+      "mcp>=1.2.0" \
+      "pydantic>=2.7" \
+      "pydantic-settings>=2.4" \
+      "azure-identity>=1.17" \
+      "azure-storage-blob>=12.20" \
+      "httpx>=0.27" \
+      "python-jose[cryptography]>=3.3" \
+      "watchfiles>=0.22"
+
+COPY server/ ./server/
+RUN pip install --no-deps -e ./server
+
+RUN mkdir -p /etc/cli-mcp
+COPY config/config.sample.json /etc/cli-mcp/config.json
+
+EXPOSE 8000
+WORKDIR /app/server
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD curl -fsS http://localhost:${PORT}/healthz || exit 1
+
+CMD ["python", "-m", "app.main_mcp"]
