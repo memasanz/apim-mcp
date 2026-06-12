@@ -14,7 +14,7 @@ Install / verify:
 Pick these values up front and keep them handy:
 
 ```powershell
-$Sub      = "7ee2b43a-eaea-4259-be7b-c8c220bfbcf9"
+$Sub      = "<YOUR-SUBSCRIPTION-ID>"
 $Rg       = "rg-cli-mcp"
 $Location = "eastus2"
 $AppName  = "climcp"                # short, 2-12 chars, lowercase
